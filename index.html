@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gosintify</title>
+  </head>
+  <body>
+    <div class="app">
+      <!-- faint graph paper, behind everything -->
+      <div class="grid" id="grid"></div>
+
+      <!-- ---------------------------------------------------------- idle -->
+      <section class="screen idle" id="s-idle">
+        <h1 class="headline" id="idle-title"></h1>
+        <div class="paste-row">
+          <div class="field-wrap">
+            <input id="link" class="link-input" type="text" autocomplete="off" autocapitalize="off"
+                   autocorrect="off" spellcheck="false" placeholder="https://open.spotify.com/…" />
+            <div class="underline" id="underline"></div>
+          </div>
+          <button class="go" id="go" aria-label="Download">→</button>
+        </div>
+        <div class="hint-row"><span class="hint" id="hint"></span></div>
+        <div class="note-row">
+          <button class="account-note" id="no-account" hidden>
+            <span class="ping"><i></i></span>
+            <span id="no-account-text"></span>
+          </button>
+        </div>
+        <div class="spacer"></div>
+        <footer class="idle-footer">
+          <button class="where" id="where"></button>
+          <div class="idle-links">
+            <button class="link-text" id="open-history">HISTORY</button>
+            <button class="link-text with-ping" id="open-settings">
+              <span class="ping" id="settings-ping"><i></i></span>SETTINGS
+            </button>
+          </div>
+        </footer>
+      </section>
+
+      <!-- ------------------------------------------------------- working -->
+      <section class="screen working" id="s-working" hidden>
+        <header class="working-header">
+          <div class="hdr-left">
+            <div class="hdr-status">
+              <span class="dot" id="status-dot"></span>
+              <span class="status" id="status"></span>
+            </div>
+            <div class="hdr-link" id="running-link"></div>
+          </div>
+          <div class="hdr-stats">
+            <div class="stat"><span class="stat-label">COLLECTION</span><span class="stat-value" id="stat-coll"></span></div>
+            <div class="rule-v"></div>
+            <div class="stat"><span class="stat-label">PROGRESS</span><span class="stat-value" id="stat-progress"></span></div>
+            <div class="rule-v"></div>
+            <div class="stat"><span class="stat-label">SPEED</span><span class="stat-value" id="stat-speed"></span></div>
+          </div>
+        </header>
+        <div class="rule"></div>
+        <div class="working-body">
+          <h1 class="headline" id="working-title"></h1>
+          <div class="bar-block">
+            <div class="bar-labels">
+              <span class="bar-label" id="bar-dir"></span>
+              <span class="bar-label" id="bar-peer"></span>
+            </div>
+            <div class="bar"><div class="bar-fill" id="bar-fill"></div></div>
+            <div class="bar-labels">
+              <span class="pct" id="pct">0%</span>
+              <span class="bar-label" id="bar-count"></span>
+            </div>
+          </div>
+          <div class="below" id="below">
+            <div class="track-grid" id="track-grid"></div>
+          </div>
+        </div>
+        <div class="rule"></div>
+        <footer class="working-footer">
+          <button class="stop" id="stop"><span class="ring"></span><span id="stop-label">STOP</span></button>
+          <span class="foot-log" id="foot-log"></span>
+          <span class="brand">GOSINTIFY</span>
+        </footer>
+      </section>
+
+      <!-- -------------------------------------------------------- poster -->
+      <section class="screen poster" id="s-poster" hidden>
+        <div class="poster-top">
+          <span class="poster-name" id="poster-name"></span>
+          <button class="link-text" id="new-link">NEW DOWNLOAD →</button>
+        </div>
+        <div class="poster-list" id="poster-list"></div>
+        <div class="poster-bottom">
+          <button class="button dark" id="open-folder">OPEN FOLDER →</button>
+          <span class="poster-stats" id="poster-stats"></span>
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------- history -->
+      <section class="screen history" id="s-history" hidden>
+        <div class="history-top">
+          <span class="history-title" id="history-title">HISTORY</span>
+          <button class="link-text" id="history-back">← BACK</button>
+        </div>
+        <div class="rule"></div>
+        <div class="history-body" id="history-body"></div>
+      </section>
+
+      <!-- ------------------------------------------------------ settings -->
+      <div class="layer" id="settings-layer" hidden>
+        <div class="scrim" id="settings-scrim"></div>
+        <div class="panel" id="settings-panel">
+          <h2 class="panel-title">SETTINGS</h2>
+
+          <div class="account-title">
+            <span class="label">SOULSEEK ACCOUNT</span>
+            <span class="ping" id="account-ping" hidden><i></i></span>
+          </div>
+          <div id="login-form"></div>
+
+          <span class="label">DOWNLOAD FOLDER</span>
+          <div class="row gap-10">
+            <div class="boxed grow"><input id="dir" class="field" autocomplete="off" autocapitalize="off" spellcheck="false" /></div>
+            <button class="button" id="choose-dir">CHOOSE…</button>
+          </div>
+
+          <div class="row gap-28">
+            <div class="col gap-8">
+              <span class="label">MP3 QUALITY (KBPS)</span>
+              <div class="choices" id="quality"></div>
+            </div>
+          </div>
+
+          <span class="label">WHEN SOULSEEK CANNOT FIND A TRACK</span>
+          <button class="check-row" id="fallback">
+            <span class="checkbox" id="fallback-box"></span>
+            <span class="check-label">TRY YOUTUBE MUSIC</span>
+          </button>
+
+          <div class="spacer-h"></div>
+          <div class="panel-footer">
+            <span class="fine">ENTER SAVES · ESC CLOSES</span>
+            <button class="button dark" id="save-settings">DONE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast" hidden></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
